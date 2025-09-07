@@ -22,8 +22,8 @@ public class Idea {
     private Long userId;
     private Long fileId;
 
-    private Integer posX;
-    private Integer posY;
+    private Double posX; // 💡 スペルと大文字/小文字が正しいか確認
+    private Double posY; // 💡 スペルと大文字/小文字が正しいか確認
     private String nodeType;
 
     private LocalDateTime createdAt;
@@ -34,4 +34,5 @@ public class Idea {
     @CollectionTable(name = "idea_tags", joinColumns = @JoinColumn(name = "idea_id"))
     @Column(name = "tag")
     private List<String> tags;
+    private List<Long> relatedIdeaIds;
 }
