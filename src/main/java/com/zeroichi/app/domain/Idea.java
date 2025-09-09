@@ -34,5 +34,4 @@ public class Idea {
     @CollectionTable(name = "idea_tags", joinColumns = @JoinColumn(name = "idea_id"))
     @Column(name = "tag")
     private List<String> tags;
-    private List<Long> relatedIdeaIds;
 }
