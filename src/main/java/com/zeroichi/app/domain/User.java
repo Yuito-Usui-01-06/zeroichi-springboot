@@ -32,6 +32,17 @@ public class User {
 
     private LocalDateTime deletedAt;
 
-    // GetterとSetterメソッド (Lombokを使用していない場合)
+    // roleフィールドを削除（DDLで削除済みのため）
 
+    public User() {
+        this.roleId = 2L; // デフォルトでUSERロール（ID=2）
+    }
+
+    // roleIdから役割を判定するメソッド
+    public String getRole() {
+        if (roleId != null && roleId == 1L) {
+            return "ADMIN";
+        }
+        return "USER";
+    }
 }

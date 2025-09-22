@@ -20,7 +20,7 @@ public class FileController {
     @Autowired
     private UserRepository userRepository;
 
-    // 💡 新規ファイル作成エンドポイント
+    // 新規ファイル作成エンドポイント
     @PostMapping
     public ResponseEntity<File> createFile(@RequestBody File file) {
         if (file.getUserId() == null) {
@@ -32,15 +32,16 @@ public class FileController {
         return ResponseEntity.ok(savedFile);
     }
 
-    // 💡 ユーザーIDからファイルを取得するエンドポイント（既存）
+    // ユーザーIDからファイルを取得するエンドポイント
     @GetMapping("/user/{userId}")
-    public List<File> getFilesByUserId(@PathVariable Long userId) {
-        return fileRepository.findByUserId(userId);
+    public ResponseEntity<List<File>> getFilesByUserId(@PathVariable Long userId) { // String → Long
+        List<File> files = fileRepository.findByUserId(userId);
+        return ResponseEntity.ok(files);
     }
 
-    // 💡 ファイル名更新エンドポイント
+    // ファイル名更新エンドポイント
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateFileName(@PathVariable Long id, @RequestBody File updatedFile) {
+    public ResponseEntity<?> updateFileName(@PathVariable Long id, @RequestBody File updatedFile) { // String → Long
         return fileRepository.findById(id)
                 .map(file -> {
                     file.setName(updatedFile.getName());
@@ -51,9 +52,9 @@ public class FileController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // 💡 特定のファイルIDからファイルを取得するエンドポイント（追加）
+    // 特定のファイルIDからファイルを取得するエンドポイント
     @GetMapping("/{id}")
-    public ResponseEntity<File> getFileById(@PathVariable Long id) {
+    public ResponseEntity<File> getFileById(@PathVariable Long id) { // String → Long
         return fileRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
