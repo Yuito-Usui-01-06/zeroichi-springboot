@@ -108,7 +108,7 @@ public class UserController {
     // ユーザーを削除するAPIエンドポイント
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+        userService.deleteUser(id);  // Service経由で安全に削除
         return ResponseEntity.noContent().build();
     }
 }
