@@ -59,4 +59,14 @@ public class FileController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
+        try {
+            fileRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
 }
